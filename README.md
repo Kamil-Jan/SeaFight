@@ -1,2 +1,12 @@
 # Sea Fight
-Чтобы начать игру, нажмите на кнопку "2 ИГРОКА". Вы перейдете в меню расставления кораблей. Чтобы взять корабль, просто перетащите его ЛКМ. Чтобы повернуть корабль, нажмите Shift
+
+### Requirements:
+* python3
+* pygame
+
+### Installation of pygame:
+'<pip install pygame>'
+
+### HotKeys:
+left-click - take a ship
+shift - turn a ship
