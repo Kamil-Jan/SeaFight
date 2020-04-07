@@ -5,8 +5,9 @@
 * pygame
 
 ### Installation of pygame:
-<pip install pygame>
-
+```bash
+pip install foobar
+```
 ### HotKeys:
 * left-click - take a ship
 * shift - turn a ship
