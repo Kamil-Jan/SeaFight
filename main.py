@@ -65,8 +65,8 @@ def CreateMainMenu():
     #-----------------------------------------------------------------------------------
     size = background.get_size()
     game_font = pygame.font.SysFont('Arial Black', 25)
-    Buttons = [('TwoPlayers', '2 ИГРОКА', (background.get_width() // 2, 125), None, (117, 215, 146), (250, 75)),
-               ('Settings', 'НАСТРОЙКИ', (background.get_width() // 2, 225), None, (117, 215, 146), (250, 75))]
+    Buttons = [('TwoPlayers', '2 PLAYERS', (background.get_width() // 2, 125),
+               None, (117, 215, 146), (250, 75))]
     return size, game_font, Buttons
 
 
@@ -90,7 +90,7 @@ def CreateSurCells(ship, grid):
     """Create Surrounded cells of the ship"""
     #-----------------------------------------------------------------------------------
     ship.surrounded_cells.empty()
-    if ship.put:    
+    if ship.put:
         for cell in grid.cell_group:
             if ship.big_rect.colliderect(cell.rect):
                 ship.surrounded_cells.add(cell)
@@ -198,7 +198,7 @@ def RedrawScreen():
         background.blit(player1_name, (background.get_width() // 2 - player1_name.get_width() // 2, 0))
 
         #-----------------------------------------------------------------------------------
-        # Draw Undo and Reset Buttons
+        # Draw Back and Reset Buttons
         #-----------------------------------------------------------------------------------
         if not error:
             Reset.draw(background, (44, 44, 44))
@@ -236,7 +236,7 @@ def RedrawScreen():
         background.blit(player2_name, (background.get_width() // 2 - player2_name.get_width() // 2, 0))
 
         #-----------------------------------------------------------------------------------
-        # Draw Undo and Reset Buttons
+        # Draw Back and Reset Buttons
         #-----------------------------------------------------------------------------------
         if not error:
             Reset.draw(background, (44, 44, 44))
@@ -262,7 +262,7 @@ def RedrawScreen():
 
         Player2Grid.DrawGrid(background)
         player2.DrawShips(background)
-    
+
     elif Game:
         #-----------------------------------------------------------------------------------
         # Game Menu updaete
@@ -301,9 +301,9 @@ def RedrawScreen():
             #-----------------------------------------------------------------------------------
             for cell in Player2Grid.cell_group:
                     cell.cell_color = (200, 200, 200)
-        
+
         #-----------------------------------------------------------------------------------
-        # Draw Undo Button
+        # Draw Back Button
         #-----------------------------------------------------------------------------------
         try:
             PutMenu.widgets_group.draw(background)
@@ -359,7 +359,7 @@ def RedrawScreen():
 # Initialise Display variables
 #-----------------------------------------------------------------------------------
 screen = pygame.display.set_mode((832, 500))
-pygame.display.set_caption('Морской Бой')
+pygame.display.set_caption('Sea Fight')
 background = pygame.Surface(screen.get_size())
 background.fill((137, 154, 238))
 
@@ -368,28 +368,28 @@ background.fill((137, 154, 238))
 #-----------------------------------------------------------------------------------
 size, game_font, Buttons = CreateMainMenu()
 game_name_font = pygame.font.SysFont('Arial Black', 60)
-game_name = game_name_font.render('МОРСКОЙ БОЙ', 3, (44, 44, 44))
-MainMenu = Appearance.Menu(size, game_font, Buttons[0], Buttons[1])
+game_name = game_name_font.render('SEA FIGHT', 3, (44, 44, 44))
+MainMenu = Appearance.Menu(size, game_font, Buttons[0])
 MainMenu.CreateWidgets()
 
 #-----------------------------------------------------------------------------------
 # Initialise PutMenu
 #-----------------------------------------------------------------------------------
-Undo = Appearance.Button('Undo', 'Назад', game_font, (0, 0), 'Arrow1.png', None, None)
-Continue = Appearance.Button('Continue', 'Вперед', game_font, (background.get_width() - 30, background.get_height() - 30), 'Arrow.png', None, None)
-Reset = Appearance.Button('Reset', 'Сбросить', game_font, (551, 400), None, (255, 215, 146), (150, 35))
+Back = Appearance.Button('Back', 'Back', game_font, (0, 0), 'Arrow1.png', None, None)
+Continue = Appearance.Button('Continue', 'Continue', game_font, (background.get_width() - 30, background.get_height() - 30), 'Arrow.png', None, None)
+Reset = Appearance.Button('Reset', 'Reset', game_font, (551, 400), None, (255, 215, 146), (150, 35))
 PutMenu = Appearance.Menu(size, game_font)
-PutMenu.widgets_group.add(Undo, Reset)
-PutMenu.full_widgets_group.add(Undo, Continue, Reset)
+PutMenu.widgets_group.add(Back, Reset)
+PutMenu.full_widgets_group.add(Back, Continue, Reset)
 
 #-----------------------------------------------------------------------------------
 # Initialise EndMenu
 #-----------------------------------------------------------------------------------
-ToMenu = ('ToMenu', 'В МЕНЮ', (background.get_width() // 2, 325), None, (117, 215, 146), (200, 75))
+BackToMenu = ('BackToMenu', 'Back to Menu', (background.get_width() // 2, 325), None, (117, 215, 146), (200, 75))
 EndMenu_bg = pygame.Surface(background.get_size())
 EndMenu_bg.fill((137, 154, 238))
 EndMenu_bg.set_alpha(200)
-EndMenu = Appearance.Menu(size, game_font, ToMenu)
+EndMenu = Appearance.Menu(size, game_font, BackToMenu)
 EndMenu.CreateWidgets()
 
 #-----------------------------------------------------------------------------------
@@ -399,18 +399,18 @@ EndMenu.CreateWidgets()
 Player1Grid = GameSpace.GameSpace((350, 350), (76, 65), 10, 10, (0, 0, 0), (35, 35), (255, 255, 255))
 Player1Grid.CreateGrid()
 player_name_font = pygame.font.SysFont('Arial Black', 30)
-player1_name = player_name_font.render('ИГРОК 1', 3, (44, 44, 44))
-player1_win = player_name_font.render('ИГРОК 1 - ПОБЕДИТЕЛЬ', 3, (44, 44, 44))
-player1_lose = player_name_font.render('ИГРОК 1 - ЛУЗЕР', 3, (44, 44, 44))
+player1_name = player_name_font.render('PLAYER 1', 3, (44, 44, 44))
+player1_win = player_name_font.render('PLAYER 1 - WINNER', 3, (44, 44, 44))
+player1_lose = player_name_font.render('PLAYER 1 - LOSER', 3, (44, 44, 44))
 
 #-----------------------------------------------------------------------------------
 # Initialise Player2 Grid
 #-----------------------------------------------------------------------------------
 Player2Grid = GameSpace.GameSpace((350, 350), (76, 65), 10, 10, (0, 0, 0), (35, 35), (255, 255, 255))
 Player2Grid.CreateGrid()
-player2_name = player_name_font.render('ИГРОК 2', 3, (44, 44, 44))
-player2_win = player_name_font.render('ИГРОК 2 - ПОБЕДИТЕЛЬ', 3, (44, 44, 44))
-player2_lose = player_name_font.render('ИГРОК 2 - ЛУЗЕР', 3, (44, 44, 44))
+player2_name = player_name_font.render('PLAYER 2', 3, (44, 44, 44))
+player2_win = player_name_font.render('PLAYER 2 - WINNER', 3, (44, 44, 44))
+player2_lose = player_name_font.render('PLAYER 2 - LOSER', 3, (44, 44, 44))
 
 #-----------------------------------------------------------------------------------
 # Initialise Player object
@@ -529,9 +529,9 @@ while running:
                 if error:
                     for widget in PutMenu.widgets_group:
                         #-----------------------------------------------------------------------------------
-                        # Click to Undo Button
+                        # Click to Back Button
                         #-----------------------------------------------------------------------------------
-                        if widget.isWithin(pos) and widget.name == 'Undo':
+                        if widget.isWithin(pos) and widget.name == 'Back':
                             #-----------------------------------------------------------------------------------
                             # Back to Main Menu
                             #-----------------------------------------------------------------------------------
@@ -562,9 +562,9 @@ while running:
                 if not error:
                     for widget in PutMenu.full_widgets_group:
                         #-----------------------------------------------------------------------------------
-                        # Click to Undo Button
+                        # Click to Back Button
                         #-----------------------------------------------------------------------------------
-                        if widget.isWithin(pos) and widget.name == 'Undo':
+                        if widget.isWithin(pos) and widget.name == 'Back':
                             showMainMenu = True
                             Player1Put = False
                             Player1Grid.reinit()
@@ -660,10 +660,10 @@ while running:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 held = True
                 pos = pygame.mouse.get_pos()
-                
+
                 if error:
                     for widget in PutMenu.widgets_group:
-                        if widget.isWithin(pos) and widget.name == 'Undo':
+                        if widget.isWithin(pos) and widget.name == 'Back':
                             Player1Put = True
                             Player2Put = False
                             Player2Grid.reinit()
@@ -681,7 +681,7 @@ while running:
 
                 if not error:
                     for widget in PutMenu.full_widgets_group:
-                        if widget.isWithin(pos) and widget.name == 'Undo':
+                        if widget.isWithin(pos) and widget.name == 'Back':
                             Player1Put = True
                             Player2Put = False
                             Player2Grid.reinit()
@@ -777,9 +777,9 @@ while running:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #-----------------------------------------------------------------------------------
-                # Click to Undo Button
+                # Click to Back Button
                 #-----------------------------------------------------------------------------------
-                if Undo.isWithin(pos):
+                if Back.isWithin(pos):
                     showMainMenu = True
                     Game = False
                     GameOn = False
@@ -847,7 +847,7 @@ while running:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for widget in EndMenu.widgets_group:
-                    if widget.isWithin(pos) and widget.name == 'ToMenu':
+                    if widget.isWithin(pos) and widget.name == 'Back to Menu':
                         showMainMenu = True
                         End = False
                         Game = False
